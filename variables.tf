@@ -63,3 +63,8 @@ variable "k8s" {
 
   default = {}
 }
+
+variable "cluster_node_pool" {
+  type = map(any)
+  default = {}
+}

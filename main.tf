@@ -53,3 +53,14 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   tags = local.common_tags
 }
+
+resource "azurerm_kubernetes_cluster_node_pool" "cluster_node_pool" {
+
+  for_each = var.cluster_node_pool
+  name                  = each.key
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  vm_size               = each.value["vm_size"]
+  node_count            = each.value["node_count"]
+
+tags = local.common_tags
+}
