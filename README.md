@@ -4,7 +4,7 @@ Utilize this module to create multiple aks cluster and cluster pool.
 
 ```hcl
 module "aks" {
-  source = "git::https://github.com/ArerepadeBenagha/elite-terraform-azurerm-aks.git?ref=main"
+  source = "git::https://github.com/ArerepadeBenagha/elite-terraform-azurerm-aks.git?ref=v1.0.0"
 
   k8s = {
     "eliteclusterdemodev" = { dns_prefix = "eliteclusterdns",
