@@ -29,12 +29,12 @@ module "aks" {
     "eliteclusterdemodev" = { dns_prefix = "eliteclusterdns",
       client_id     = azuread_service_principal.eliteclusterdemodev-SP.application_id,
       client_secret = azuread_service_principal_password.eliteclusterdemodev-SP.value,
-      load_balancer_sku = "standard", network_plugin = "kubenet" }
+    load_balancer_sku = "standard", network_plugin = "kubenet" }
 
     "eliteclusterdemodev2" = { dns_prefix = "eliteclusterdns",
       client_id     = azuread_service_principal.eliteclusterdemodev-SP.application_id,
       client_secret = azuread_service_principal_password.eliteclusterdemodev-SP.value,
-      load_balancer_sku = "standard", network_plugin = "kubenet" }
+    load_balancer_sku = "standard", network_plugin = "kubenet" }
   }
 
   cluster_node_pool = {
