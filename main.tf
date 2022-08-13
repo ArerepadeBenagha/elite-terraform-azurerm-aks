@@ -19,7 +19,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   name                = each.key
   location            = data.azurerm_resource_group.k8s.location
   resource_group_name = data.azurerm_resource_group.k8s.name
-  dns_prefix          = each.dns_prefix["dns_prefix"]
+  dns_prefix          = each.value["dns_prefix"]
 
   linux_profile {
     admin_username = var.admin_username

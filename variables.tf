@@ -56,3 +56,10 @@ variable "network_profile" {
     network_plugin    = string
   }))
 }
+
+variable "k8s" {
+  type        = map(any)
+  description = "Kubernetes cluster to be deployed"
+
+  default = {}
+}
