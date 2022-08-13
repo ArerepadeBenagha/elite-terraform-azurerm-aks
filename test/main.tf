@@ -3,7 +3,7 @@
  ******************/
 resource "azurerm_resource_group" "eliteclusterdemorg" {
   name     = "eliteclusterdemoaks"
-  location = "eastu2"
+  location = "eastus2"
 }
 
 /*********************
@@ -26,7 +26,15 @@ module "aks" {
   source = "git::https://github.com/ArerepadeBenagha/elite-terraform-azurerm-aks.git?ref=main"
 
   k8s = {
-    "eliteclusterdemodev" = { dns_prefix = "eliteclusterdns" }
+    "eliteclusterdemodev" = { dns_prefix = "eliteclusterdns",
+      client_id     = azuread_service_principal.eliteclusterdemodev-SP.application_id,
+      client_secret = azuread_service_principal_password.eliteclusterdemodev-SP.value,
+    load_balancer_sku = "standard", network_plugin = "kubenet" }
+
+    "eliteclusterdemodev2" = { dns_prefix = "eliteclusterdns",
+      client_id     = azuread_service_principal.eliteclusterdemodev-SP.application_id,
+      client_secret = azuread_service_principal_password.eliteclusterdemodev-SP.value,
+    load_balancer_sku = "standard", network_plugin = "kubenet" }
   }
 
   subcription_name    = "EliteSolutionsIT-DEV"
@@ -35,7 +43,7 @@ module "aks" {
   agent_count         = "2"
   vm_size             = "Standard_D2_v2"
   admin_username      = "ubuntu"
-  key_data            = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDL6wGT/0DGpqs2kco+A2ujK64PEHIO7Sw/wZc5GOiQlqx7lNYhHC+hJlcChb/g+Yzz/wVray/XR7uUadtYOk3PsUQx0gZykwx7oZHRSS6KFLwEtBl4vf84qMyOEM5EZ3CLcalE/MHwp8MJTUFqd239NfhJM6/40kTsB3TMIVEYfb1O3lbMB1qBD6yIskEPyZ1vc++S023m7O4X+ukzqmMG/oom+IpBN/pPO7Cp5yjGzzNtGbjCWtGMzE2J5Db+FlaAOEnLInHV76sUqPjsOIXLdCxDEFxzlbIjEDD6/JOmMgtKj48wehxRB4LjcU9XwanRwko4emYx+yf+IL7GpCstZRGENHkTeTxQ9vxuHi6q/hTHcc8AS5guZQK+JiCV5FOZIyM3FySzOJvCm4Z/lFiqcaYfhO5QZnqVQonZ4TA8XLAzXEB5ybmxedaZhcySe3CZAvo086bp4xtJpV0VhT9JAlPtYRdydK80CvWYMcyRtEwfOxsRuKj4bUQIEZdemQ8= lbena@LAPTOP-QB0DU4OG"
+  key_data            = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDePsvhlzQd5giUS6tNQD65JmChBToxgvfrTJDeytpURBRGBxidoGYDgjcukv3qb+MR3Fqskp8ajcjRpXRbWqgnda7hWSJjhGHQL1AhtyeTocvpYGfNLqisFJyfdYW/V3UGcN4OqcMoXaYvVTcJk6zPkThT3AaKVg6O822mK9UIn7pG/1GBcuzQL9r8C6inss+d/NGzJuhwgkos1XVMCaJ5wiqfmPi/BqprkFk1Yklt74b2pjfDttgFeQ/iAMfW8Pm1BEjO8a5M2k52QEO/hKsxAYGakgjPtnVhKiqbAxT27Tl4YLhZKnJqzhaztFPXyf3S6ce0ixp1QmGRzH5XWClspmASh/tmdHyN0frPfma5bcgUJmDMAUAv4Xc+BC2Qvj2feYJ5swN8Swsxe+9agw/6KtwN5QkaZC5hI19rUs2PIh0go4QhFayDQjHkO66RxZe9fbVjjC1OAvoWJTXAzoz7RSn8omxW976Us7UgmcVBEmJy++Xu4GVU5aMJIPDuoEc= lbena@LAPTOP-QB0DU4OG"
   resource_group_name = azurerm_resource_group.eliteclusterdemorg.name
 
   service_principal = [{
@@ -47,4 +55,6 @@ module "aks" {
     load_balancer_sku = "standard"
     network_plugin    = "kubenet"
   }]
+
+  depends_on = [azurerm_resource_group.eliteclusterdemorg, azuread_service_principal.eliteclusterdemodev-SP, azuread_service_principal_password.eliteclusterdemodev-SP]
 }

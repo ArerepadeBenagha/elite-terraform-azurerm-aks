@@ -1,2 +1,6 @@
 .terraform.lock.hcl
 .terraform/
+clusterkeytest
+clusterkeytest.pub
+terraform.tfstate
+terraform.tfstate.backup
