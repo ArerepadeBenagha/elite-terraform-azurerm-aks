@@ -3,7 +3,7 @@ variable "subcription_name" {
   description = "Main Subscription for deployments"
 
   validation {
-    condition     = var.subscription_name == "EliteSolutionsIT"
+    condition     = var.subcription_name == "EliteSolutionsIT"
     error_message = "Please choose a valid subscription."
   }
 }
@@ -13,7 +13,7 @@ variable "env" {
   description = "Tier for deployments"
 
   validation {
-    condition     = lower(var.tier) == var.tier
+    condition     = lower(var.env) == var.env
     error_message = "Please tiers must all be in lower case."
   }
 }
