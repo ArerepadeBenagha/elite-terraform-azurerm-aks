@@ -65,6 +65,6 @@ variable "k8s" {
 }
 
 variable "cluster_node_pool" {
-  type = map(any)
+  type    = map(any)
   default = {}
 }
