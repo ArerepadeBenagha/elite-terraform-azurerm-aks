@@ -3,7 +3,7 @@ variable "subcription_name" {
   description = "Main Subscription for deployments"
 
   validation {
-    condition     = var.subcription_name == "EliteSolutionsIT"
+    condition     = var.subcription_name == "EliteSolutionsIT-DEV"
     error_message = "Please choose a valid subscription."
   }
 }
